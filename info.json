@@ -1,0 +1,9 @@
+{
+    "author": "Doublespin, Darkshadow1809, jamuspsi",
+    "factorio_version": "0.14",
+    "name": "replicators",
+    "description": "This mod will try to make every item/fluid in the game replicable. This includes all items from mods. The time needed to replicate an item is based on the sum of its ingredients replication time. Per default the resource generation is enabled, but you can turn it off in the config",
+    "version": "1.1.5",
+    "homepage": " ",
+    "title": "Energy Replicators"
+}
