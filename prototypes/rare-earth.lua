@@ -33,7 +33,7 @@ data:extend(
     order="a-b-a",
     infinite = true,
 	normal = 1000,
-	minimal = 75,
+	minimum = 75,
     minable =
     {
       hardness = 0.7,
