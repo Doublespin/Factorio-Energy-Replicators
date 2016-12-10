@@ -46,7 +46,6 @@ for name, table in pairs(item) do
 	-- add every name in item-table which really exists ingame to recipes
 	if data.raw.item[name] then repl_recipe({item = name, tier = item[name].tier})
 	elseif data.raw.ammo[name] then repl_recipe({item = name, tier = item[name].tier})
-	elseif data.raw.fluid[name] then repl_recipe({item = name, tier = item[name].tier})
 	elseif data.raw.module[name] then repl_recipe({item = name, tier = item[name].tier})
 	elseif data.raw.tool[name] then repl_recipe({item = name, tier = item[name].tier}) end
 end
@@ -158,7 +157,14 @@ for tier=1, 5 do
 
 end
 
-
+for _, module in pairs(data.raw.module) do
+  if module.limitation and module.effect.productivity then
+    table.insert(module.limitation, "neodymium-plate")
+    table.insert(module.limitation, "rare-earth-magnet")
+    table.insert(module.limitation, "superconductor")
+    table.insert(module.limitation, "ion-conduit")
+  end
+end
 
 
 --it[t]=1

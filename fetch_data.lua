@@ -152,6 +152,7 @@ local function make_known_recipe(recipe_table) -- input: {type="recipe", name, i
 			result[1].amount = recipe_table.result_count or 1
 			result[1].type = "item"
 		end
+		if result[1].name=="steel-box" or result[1].name=="wooden-box" or result[1].name=="gas-canister" then return nil end ---- <-----This line is an fix for marathon and the problem with stdlib recipe.select(); 
 		
 		-- restructure ingredients
 		recipe_table.ingredients = ingred_structure(recipe_table.ingredients)
@@ -160,13 +161,12 @@ local function make_known_recipe(recipe_table) -- input: {type="recipe", name, i
 		for i , material in pairs(recipe_table.ingredients) do
 
 			rtime = rtime + get_time(material.name, material.type) * material.amount
-			comp = i + comp + get_comp(material.name, material.type)
+			comp = i + comp + get_comp(material.name, material.type) * math.log(material.amount+9)/math.log(10)
 
 		end
 		
-		
 		new_krecipe.time = rtime / result[1].amount -- there should only be one single result item, because multi result recipes need to get splitted. This wil be done later in the code.
-		new_krecipe.comp = comp
+		new_krecipe.comp = math.ceil(comp)
 		add_known_recipe(result[1].name, new_krecipe,  result[1].type)
 	end
 end
@@ -338,7 +338,7 @@ for name, tab in pairs(resources) do
 	elseif tab.type == "fluid" and (not fluid[name]) then
 		fluid[name] = {time = tab.time, comp = 0}
 	else
-		log("Replicators: Missing resource type")
+		log("Replicators: Missing resource type for: ".. name)
 	end
 end
 --bre[1]=1
@@ -376,6 +376,8 @@ for i, name in pairs(recursive_blacklist) do
 end
 
 -- Recursive iteration through the recipe table to gather the new recipes for the recplication recipes
+--log(serpent.block(item))
+--log(serpent.block(recipes))
 local j = table_length(recipes)
 local l = j + 1
 while j < l do -- l will stop loop if j stops decreasing
@@ -389,6 +391,8 @@ while j < l do -- l will stop loop if j stops decreasing
 	if j == 0 then break end
 	l=l-1
 end
+--log("-------------")
+--log(serpent.block(item))
 --print("Not recognized recipes: " .. j)
 --print(serpent.block(recipes))
 
@@ -555,8 +559,9 @@ function repl_penalty(arg)
     time=arg
     tier=0
   end
-  return time * (1.1 + math.sqrt(tier) / pen_factor) * replcation_time_factor
+  return (time * (1.1 + math.sqrt(tier / pen_factor)) + math.sqrt(tier)) * replcation_time_factor
 end
 
---it[t]=1
+--print(pen_factor)
 --print(serpent.block(quantiles))
+--it[t]=1

@@ -11,7 +11,7 @@ replcator_speed_factor = 2			-- Higher means the speed difference between two re
 
 -- Energy consumption
 replcator_base_power = 1			-- Higher means more energy is needed: 2 would double the energy consumption (default: 1)
-replcator_power_factor = 2.1		-- Higher means the energy demand difference between two replcator tiers gets bigger (default: 2.1; small changes can have big impact)
+replcator_power_factor = 2.2		-- Higher means the energy demand difference between two replcator tiers gets bigger (default: 2.1; small changes can have big impact)
 
 -- Pollution
 replcator_base_pollution = 1 		-- Higher means more pollution: 2 would double the pollution (default: 1)
