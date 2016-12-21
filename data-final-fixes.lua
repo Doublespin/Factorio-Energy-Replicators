@@ -157,15 +157,16 @@ for tier=1, 5 do
 
 end
 
-for _, module in pairs(data.raw.module) do
-  if module.limitation and module.effect.productivity then
-    table.insert(module.limitation, "neodymium-plate")
-    table.insert(module.limitation, "rare-earth-magnet")
-    table.insert(module.limitation, "superconductor")
-    table.insert(module.limitation, "ion-conduit")
-  end
+if rare_earth_enabled then
+	for _, module in pairs(data.raw.module) do
+	  if module.limitation and module.effect.productivity then
+		table.insert(module.limitation, "neodymium-plate")
+		table.insert(module.limitation, "rare-earth-magnet")
+		table.insert(module.limitation, "superconductor")
+		table.insert(module.limitation, "ion-conduit")
+	  end
+	end
 end
-
 
 --it[t]=1
 
